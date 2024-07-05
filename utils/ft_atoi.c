@@ -1,32 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msmajdor <msmajdor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/05 21:44:47 by msmajdor          #+#    #+#             */
-/*   Updated: 2024/07/05 21:46:20 by msmajdor         ###   ########.fr       */
+/*   Created: 2024/07/05 23:33:47 by msmajdor          #+#    #+#             */
+/*   Updated: 2024/07/05 23:36:20 by msmajdor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#include "philo.h"
 
-# include <stdio.h>
-# include <stdbool.h>
-# include <stddef.h>
-
-typedef struct s_philo
+int	ft_atoi(const char *str)
 {
-	short	id;
-	bool	is_eating;
-	long	meals;
-	long	last_meal;
-	t_philo *left;
-	t_philo *right;
-}	t_philo;
+	int		counter;
+	int		sign;
+	size_t	i;
 
-int	ft_atoi(const char *str);
-
-#endif
+	counter = 0;
+	sign = 1;
+	i = 0;
+	while (str[i] == ' ' || (str[i] >= '\t' && str[i] <= '\r'))
+		i++;
+	if (str[i] == '-' || str[i] == '+')
+	{
+		if (str[i] == '-')
+			sign = -1;
+		i++;
+	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		counter = counter * 10 + (str[i] - '0');
+		i++;
+	}
+	return (counter * sign);
+}
