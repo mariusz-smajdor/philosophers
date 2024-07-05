@@ -14,5 +14,16 @@
 # define PHILO_H
 
 # include <stdio.h>
+# include <stdbool.h>
+
+typedef struct s_philo
+{
+	int		id;
+	bool	is_eating;
+	long	meals;
+	long	last_meal;
+	t_philo *left;
+	t_philo *right;
+}	t_philo;
 
 #endif
