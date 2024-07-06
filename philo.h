@@ -17,23 +17,26 @@
 # include <stdbool.h>
 # include <stddef.h>
 
+typedef unsigned short ushort;
+typedef unsigned long ulong;
+
 typedef struct s_philo
 {
-	short	id;
+	ushort	id;
+	ushort	meals;
+	ulong	last_meal_time;
 	bool	is_eating;
-	long	meals;
-	long	last_meal;
 	t_philo *left;
 	t_philo *right;
 }	t_philo;
 
 typedef struct s_philos
 {
-	long 	eat_time;
-	long 	sleep_time;
-	long 	starve_time;
-	short 	max_meals;
-	long 	simulation_start;
+	ushort 	max_meals;
+	ulong 	eat_time;
+	ulong 	sleep_time;
+	ulong 	starve_time;
+	ulong 	simulation_start;
 	bool 	simulation_end;
 	t_philo	*philos;
 }	t_table;
