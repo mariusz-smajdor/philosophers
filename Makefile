@@ -3,7 +3,7 @@ CC = gcc
 FLAGS = -Wall -Wextra -Werror
 RM = del
 
-SRCS = philo.c
+SRCS = philo.c utils.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)

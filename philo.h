@@ -50,6 +50,7 @@ typedef struct s_philos
 	t_philo	*philos;
 }	t_philos;
 
-void	error_exit(char *error);
+inline bool	is_space(char c);
+void		error_exit(char *error);
 
 #endif
