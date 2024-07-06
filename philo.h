@@ -51,6 +51,7 @@ typedef struct s_philos
 }	t_philos;
 
 inline bool	is_space(char c);
+inline bool	is_digit(char c);
 void		error_exit(char *error);
 
 #endif

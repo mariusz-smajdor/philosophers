@@ -6,7 +6,7 @@
 /*   By: msmajdor <msmajdor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/06 16:57:47 by msmajdor          #+#    #+#             */
-/*   Updated: 2024/07/06 17:52:20 by msmajdor         ###   ########.fr       */
+/*   Updated: 2024/07/06 17:58:20 by msmajdor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,4 +21,9 @@ void	error_exit(char *error)
 inline bool	is_space(char c)
 {
 	return (c == ' ' || (c >= '\t' && c <= '\r'));
+}
+
+inline bool	is_digit(char c)
+{
+	return (c >= '0' && c <= '9');
 }
