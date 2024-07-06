@@ -50,7 +50,6 @@ typedef struct s_philos
 	t_philo	*philos;
 }	t_philos;
 
-int		ft_atoi(const char *str);
 void	error_exit(char *error);
 
 #endif
