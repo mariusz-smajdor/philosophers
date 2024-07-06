@@ -47,7 +47,7 @@ typedef struct s_philos
 	ulong 	simulation_start;
 	bool 	simulation_end;
 	t_philo	*philos;
-}	t_table;
+}	t_philos;
 
 int	ft_atoi(const char *str);
 
