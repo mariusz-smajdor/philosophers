@@ -16,6 +16,7 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include <stddef.h>
+# include <stdlib.h>
 # include <pthread.h>
 
 typedef pthread_mutex_t t_mutex;
@@ -49,6 +50,7 @@ typedef struct s_philos
 	t_philo	*philos;
 }	t_philos;
 
-int	ft_atoi(const char *str);
+int		ft_atoi(const char *str);
+void	error_exit(char *error);
 
 #endif
