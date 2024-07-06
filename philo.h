@@ -27,6 +27,17 @@ typedef struct s_philo
 	t_philo *right;
 }	t_philo;
 
+typedef struct s_philos
+{
+	long 	eat_time;
+	long 	sleep_time;
+	long 	starve_time;
+	short 	max_meals;
+	long 	simulation_start;
+	bool 	simulation_end;
+	t_philo	*philos;
+}	t_table;
+
 int	ft_atoi(const char *str);
 
 #endif
