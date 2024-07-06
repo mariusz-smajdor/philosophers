@@ -12,8 +12,12 @@
 
 #include "philo.h"
 
-int	main()
+int	main(int ac, char **av)
 {
-	printf("philosophers\n");
+	t_philos	philos;
+
+	if (ac != 5 && ac != 6)
+		error_exit("Invalid number of arguments");
+	init_philos(&philos, av + 1);
 	return (0);
 }

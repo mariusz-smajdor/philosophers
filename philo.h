@@ -18,6 +18,7 @@
 # include <stddef.h>
 # include <stdlib.h>
 # include <pthread.h>
+# include <limits.h>
 
 typedef pthread_mutex_t t_mutex;
 typedef unsigned short ushort;
@@ -57,5 +58,6 @@ typedef struct s_philos
 bool	is_digit(char c);
 bool	is_space(char c);
 void	error_exit(char *error);
+void	init_philos(t_philos *philos, char **args);
 
 #endif
