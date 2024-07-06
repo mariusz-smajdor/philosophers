@@ -16,9 +16,17 @@
 # include <stdio.h>
 # include <stdbool.h>
 # include <stddef.h>
+# include <pthread.h>
 
+typedef pthread_mutex_t t_mutex;
 typedef unsigned short ushort;
 typedef unsigned long ulong;
+
+typedef struct s_fork
+{
+	ushort	id;
+	t_mutex	mutex;
+}	t_fork;
 
 typedef struct s_philo
 {
