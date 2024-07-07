@@ -63,7 +63,7 @@ typedef struct s_philos
 	ulong 	starve_time;
 	ulong 	simulation_start;
 	bool 	simulation_end;
-	t_philo	*philos;
+	t_philo	*philosophers;
 	t_fork	*forks;
 }	t_philos;
 
