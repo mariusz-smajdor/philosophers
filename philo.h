@@ -58,6 +58,7 @@ typedef struct s_philos
 bool	is_digit(char c);
 bool	is_space(char c);
 void	error_exit(char *error);
+void	*safe_malloc(size_t size);
 void	init_philos(t_philos *philos, char **args);
 
 #endif
