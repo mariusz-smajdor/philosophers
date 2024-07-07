@@ -71,6 +71,7 @@ bool	is_digit(char c);
 bool	is_space(char c);
 void	error_exit(char *error);
 void	*safe_malloc(size_t size);
+void	safe_mutex(t_mutex *mutex, t_opcode opcode);
 void	init_philos(t_philos *philos, char **args);
 
 #endif
