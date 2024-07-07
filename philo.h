@@ -28,6 +28,17 @@ typedef struct s_fork t_fork;
 typedef struct s_philo t_philo;
 typedef struct s_philos t_philos;
 
+typedef enum e_opcode
+{
+	LOCK,
+	UNLOCK,
+	INIT,
+	DESTROY,
+	CREATE,
+	JOIN,
+	DETACH
+}	t_opcode;
+
 typedef struct s_fork
 {
 	ushort	id;
