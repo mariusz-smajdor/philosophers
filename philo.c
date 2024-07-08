@@ -19,5 +19,6 @@ int	main(int ac, char **av)
 	if (ac != 5 && ac != 6)
 		error_exit("Invalid number of arguments");
 	init_simulation(&simulation, av + 1);
+	start_simulation(&simulation);
 	return (0);
 }
