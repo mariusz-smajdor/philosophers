@@ -43,39 +43,37 @@ static void	assign_forks(t_philo *philo, t_fork *forks, short philos_num, short 
 	}
 }
 
-static void init_philosophers(t_philos *philos, int philos_num)
+static void init_philosophers(t_philos *philos)
 {
 	t_philo	*philo;
 	short	i;
 
 	i = -1;
-	while (++i < philos_num)
+	while (++i < philos->number)
 	{
 		philo = &philos->philosophers[i];
 		philo->id = i + 1;
 		philo->meals = 0;
 		philo->is_full = false;
-		assign_forks(philo, philos->forks, philos_num, i);
+		assign_forks(philo, philos->forks, philos->number, i);
 	}
 }
 
-static void	init_forks(t_fork *forks, int philos_num)
+static void	init_forks(t_philos *philos)
 {
 	short	i;
 
 	i = -1;
-	while (++i < philos_num)
+	while (++i < philos->number)
 	{
-		forks[i].id = i;
-		safe_mutex(forks[i].mutex, INIT);
+		philos->forks[i].id = i;
+		safe_mutex(philos->forks[i].mutex, INIT);
 	}
 }
 
 void	init_philos(t_philos *philos, char **args)
 {
-	ushort	philos_num;
-
-	philos_num = process_arg(args[0]);
+	philos->number = process_arg(args[0]);
 	philos->starve_time = process_arg(args[1]);
 	philos->eat_time = process_arg(args[2]) * 1e3; 
 	philos->sleep_time = process_arg(args[3]) * 1e3;
@@ -91,8 +89,8 @@ void	init_philos(t_philos *philos, char **args)
 	else
 		philos->min_meals = -1;
 	philos->simulation_end = false;
-	philos->philosophers = safe_malloc(sizeof(t_philo) * philos_num);
-	philos->forks = safe_malloc(sizeof(t_fork) * philos_num);
-	init_forks(philos->forks, philos_num); 
-	init_philosophers(philos, philos_num);
+	philos->philosophers = safe_malloc(sizeof(t_philo) * philos->number);
+	philos->forks = safe_malloc(sizeof(t_fork) * philos->number);
+	init_forks(philos); 
+	init_philosophers(philos);
 }

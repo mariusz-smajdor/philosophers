@@ -57,6 +57,7 @@ typedef struct s_philo
 
 typedef struct s_philos
 {
+	ushort 	number;
 	short 	min_meals;
 	ulong 	eat_time;
 	ulong 	sleep_time;
