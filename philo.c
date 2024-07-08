@@ -14,10 +14,10 @@
 
 int	main(int ac, char **av)
 {
-	t_philos	philos;
+	t_simulation	simulation;
 
 	if (ac != 5 && ac != 6)
 		error_exit("Invalid number of arguments");
-	init_philos(&philos, av + 1);
+	init_simulation(&simulation, av + 1);
 	return (0);
 }

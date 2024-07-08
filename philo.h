@@ -26,7 +26,7 @@ typedef unsigned long ulong;
 
 typedef struct s_fork t_fork;
 typedef struct s_philo t_philo;
-typedef struct s_philos t_philos;
+typedef struct s_simulation t_simulation;
 
 typedef enum e_opcode
 {
@@ -47,24 +47,27 @@ typedef struct s_fork
 
 typedef struct s_philo
 {
-	ushort	id;
-	ushort	meals;
-	ulong	last_meal_time;
-	bool	is_full;
-	t_philo *left;
-	t_philo *right;
+	ushort			id;
+	ushort			meals;
+	ulong			last_meal_time;
+	bool			is_full;
+	t_fork			*left;
+	t_fork 			*right;
+	t_simulation	*simulation;
 }	t_philo;
 
-typedef struct s_philos
+typedef struct s_simulation
 {
-	ushort 	number;
+	ushort 	philos_number;
 	short 	min_meals;
 	ulong 	eat_time;
 	ulong 	sleep_time;
 	ulong 	starve_time;
 	ulong 	simulation_start;
 	bool 	simulation_end;
-	t_philo	*philosophers;
+	bool 	simulation_ready;
+	t_mutex	simulation_mutex;
+	t_philo	*philos;
 	t_fork	*forks;
 }	t_philos;
 
@@ -75,6 +78,6 @@ void	*safe_malloc(size_t size);
 void	safe_mutex(t_mutex *mutex, t_opcode opcode);
 void	safe_thread(pthread_t *thread, void *(*philo_routine)(void *),
 		void *data, t_opcode opcode);
-void	init_philos(t_philos *philos, char **args);
+void	init_philos(t_simulation *simulation, char **args);
 
 #endif

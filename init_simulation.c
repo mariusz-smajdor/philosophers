@@ -43,54 +43,55 @@ static void	assign_forks(t_philo *philo, t_fork *forks, short philos_num, short 
 	}
 }
 
-static void init_philosophers(t_philos *philos)
+static void init_philos(t_simulation *simulation)
 {
 	t_philo	*philo;
 	short	i;
 
 	i = -1;
-	while (++i < philos->number)
+	while (++i < simulation->philos_number)
 	{
-		philo = &philos->philosophers[i];
+		philo = &simulation->philos[i];
 		philo->id = i + 1;
 		philo->meals = 0;
 		philo->is_full = false;
-		assign_forks(philo, philos->forks, philos->number, i);
+		assign_forks(philo, simulation->forks, simulation->philos_number, i);
 	}
 }
 
-static void	init_forks(t_philos *philos)
+static void	init_forks(t_simulation *simulation)
 {
 	short	i;
 
 	i = -1;
-	while (++i < philos->number)
+	while (++i < simulation->philos_number)
 	{
-		philos->forks[i].id = i;
-		safe_mutex(philos->forks[i].mutex, INIT);
+		simulation->forks[i].id = i;
+		safe_mutex(simulation->forks[i].mutex, INIT);
 	}
 }
 
-void	init_philos(t_philos *philos, char **args)
+void	init_simulation(t_simulation *simulation, char **args)
 {
-	philos->number = process_arg(args[0]);
-	philos->starve_time = process_arg(args[1]);
-	philos->eat_time = process_arg(args[2]) * 1e3; 
-	philos->sleep_time = process_arg(args[3]) * 1e3;
-	philos->min_meals = process_arg(args[4]) * 1e3;
-	if (philos->starve_time <= philos->eat_time + philos->sleep_time)
+	simulation->philos_number = process_arg(args[0]);
+	simulation->starve_time = process_arg(args[1]);
+	simulation->eat_time = process_arg(args[2]) * 1e3; 
+	simulation->sleep_time = process_arg(args[3]) * 1e3;
+	simulation->min_meals = process_arg(args[4]) * 1e3;
+	if (simulation->starve_time <= simulation->eat_time + simulation->sleep_time)
 		error_exit("Starve time must be greater than eat and sleep time!");
-	if (philos->starve_time < 6e4
-		|| philos->eat_time < 6e4
-		|| philos->sleep_time < 6e4)
+	if (simulation->starve_time < 6e4
+		|| simulation->eat_time < 6e4
+		|| simulation->sleep_time < 6e4)
 		error_exit("Time must be greater than 60ms!");
 	if (args[5])
-		philos->min_meals = process_arg(args[5]);
+		simulation->min_meals = process_arg(args[5]);
 	else
-		philos->min_meals = -1;
-	philos->simulation_end = false;
-	philos->philosophers = safe_malloc(sizeof(t_philo) * philos->number);
-	philos->forks = safe_malloc(sizeof(t_fork) * philos->number);
-	init_forks(philos); 
-	init_philosophers(philos);
+		simulation->min_meals = -1;
+	simulation->simulation_end = false;
+	simulation->simulation_ready = false;
+	simulation->philos = safe_malloc(sizeof(t_philo) * simulation->philos_number);
+	simulation->forks = safe_malloc(sizeof(t_fork) * simulation->philos_number);
+	init_forks(simulation); 
+	init_philos(simulation);
 }
