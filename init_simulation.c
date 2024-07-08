@@ -55,6 +55,7 @@ static void init_philos(t_simulation *simulation)
 		philo->id = i + 1;
 		philo->meals = 0;
 		philo->is_full = false;
+		philo->simulation = simulation;
 		assign_forks(philo, simulation->forks, simulation->philos_number, i);
 	}
 }
