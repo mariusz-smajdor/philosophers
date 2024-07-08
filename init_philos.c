@@ -89,7 +89,7 @@ void	init_philos(t_philos *philos, char **args)
 	if (args[5])
 		philos->min_meals = process_arg(args[5]);
 	else
-		philos->min_meals = 0;
+		philos->min_meals = -1;
 	philos->simulation_end = false;
 	philos->philosophers = safe_malloc(sizeof(t_philo) * philos_num);
 	philos->forks = safe_malloc(sizeof(t_fork) * philos_num);
