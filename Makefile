@@ -9,7 +9,7 @@ OBJS = $(SRCS:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(FLAGS) $(OBJS) -o $@
+	$(CC) $(FLAGS) $(OBJS) -pthread -o $@
 	$(MAKE) clean
 
 clean:
