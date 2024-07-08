@@ -50,7 +50,7 @@ typedef struct s_philo
 	ushort	id;
 	ushort	meals;
 	ulong	last_meal_time;
-	bool	is_eating;
+	bool	is_full;
 	t_philo *left;
 	t_philo *right;
 }	t_philo;
