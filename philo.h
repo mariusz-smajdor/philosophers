@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msmajdor <msmajdor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/05 21:34:47 by msmajdor          #+#    #+#             */
-/*   Updated: 2024/07/12 21:37:20 by msmajdor         ###   ########.fr       */
+/*   Updated: 2024/07/05 21:37:20 by msmajdor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#ifndef PHILO_H
+# define PHILO_H
 
-int	main(int ac, char **av)
-{
-	if (ac != 5 && ac != 6)
-		error_exit("Wrong number of arguments!");
-	return (0);
-}
+# include <stdio.h>
+# include <stdlib.h>
+
+void	error_exit(const char *msg);
+
+#endif
