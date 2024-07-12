@@ -78,6 +78,7 @@ void	*safe_malloc(size_t size);
 void	safe_mutex(t_mutex *mutex, t_opcode opcode);
 void	safe_thread(pthread_t *thread, void *(*philo_routine)(void *),
 		void *data, t_opcode opcode);
-void	init_philos(t_simulation *simulation, char **args);
+void	init_simulation(t_simulation *simulation, char **args);
+void	start_simulation(t_simulation *simulation);
 
 #endif

@@ -68,7 +68,7 @@ static void	init_forks(t_simulation *simulation)
 	while (++i < simulation->philos_number)
 	{
 		simulation->forks[i].id = i;
-		safe_mutex(simulation->forks[i].mutex, INIT);
+		safe_mutex(&simulation->forks[i].mutex, INIT);
 	}
 }
 
