@@ -12,6 +12,11 @@
 
 #include "philo.h"
 
+bool	is_digit(const char c)
+{
+	return (c >= '0' && c <= '9');
+}
+
 bool	is_space(const char c)
 {
 	return (c == ' ' || (c >= '\t' && c <= '\r'));
