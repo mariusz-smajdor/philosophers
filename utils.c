@@ -12,6 +12,11 @@
 
 #include "philo.h"
 
+bool	is_space(const char c)
+{
+	return (c == ' ' || (c >= '\t' && c <= '\r'));
+}
+
 void	error_exit(const char *msg)
 {
 	printf("Error: %s\n", msg);
