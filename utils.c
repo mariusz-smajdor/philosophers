@@ -12,8 +12,8 @@
 
 #include "philo.h"
 
-void    error_exit(const char *msg)
+void	error_exit(const char *msg)
 {
-    printf("Error: %s\n", msg);
-    exit(1);
+	printf("Error: %s\n", msg);
+	exit(EXIT_FAILURE);
 }
