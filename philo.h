@@ -15,7 +15,21 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <stdbool.h>
+# include <limits.h>
 
+typedef struct s_simulation
+{
+	int		philo_count;
+	long	time_to_die;
+	long	time_to_eat;
+	long	time_to_sleep;
+	int		meal_count;
+}	t_simulation;
+
+bool	is_digit(const char c);
+bool	is_space(const char c);
 void	error_exit(const char *msg);
+void	initiate_data(t_simulation *simulation, char **av);
 
 #endif

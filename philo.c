@@ -14,7 +14,10 @@
 
 int	main(int ac, char **av)
 {
+	t_simulation	simulation;
+
 	if (ac != 5 && ac != 6)
 		error_exit("Wrong number of arguments!");
+	initiate_data(&simulation, av + 1);
 	return (0);
 }
