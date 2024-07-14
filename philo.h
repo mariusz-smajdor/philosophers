@@ -24,7 +24,7 @@ typedef struct s_simulation
 	long	time_to_die;
 	long	time_to_eat;
 	long	time_to_sleep;
-	int		meal_count;
+	int		max_meals;
 }	t_simulation;
 
 bool	is_digit(const char c);

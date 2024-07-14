@@ -38,7 +38,7 @@ void	initiate_data(t_simulation *simulation, char **av)
 	simulation->time_to_eat = process_input(av[2]) * 1e3;
 	simulation->time_to_sleep = process_input(av[3]) * 1e3;
 	if (av[4])
-		simulation->meal_count = process_input(av[4]);
+		simulation->max_meals = process_input(av[4]);
 	else
-		simulation->meal_count = -1;
+		simulation->max_meals = -1;
 }
