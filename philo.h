@@ -37,6 +37,7 @@ typedef struct s_philo
 	int				meals_count;
 	long			last_meal;
 	bool			is_eating;
+	pthread_t		thread;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
 	s_simulation	*simulation;
@@ -50,6 +51,7 @@ typedef struct s_simulation
 	long	time_to_sleep;
 	int		max_meals;
 	t_philo	*philos;
+	t_fork	*forks;
 }	t_simulation;
 
 bool	is_digit(const char c);

@@ -67,7 +67,7 @@ static void	initiate_forks(t_simulation *simulation)
 	while (++i < simulation->philo_count)
 	{
 		simulation->forks[i].id = i;
-		simulation->forks[i].is_taken = false;
+		pthread_mutex_init(&simulation->forks[i].fork, NULL);
 	}
 }
 
