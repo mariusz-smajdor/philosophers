@@ -18,6 +18,25 @@
 # include <stdbool.h>
 # include <limits.h>
 
+typedef struct s_simulation	t_simulation;
+typedef struct s_philo		t_philo;
+typedef struct s_fork		t_fork;
+
+typedef struct s_fork
+{
+	int		id;
+	bool	is_taken;
+}	t_fork;
+
+typedef struct s_philo
+{
+	int				id;
+	int				meals_count;
+	long			last_meal;
+	bool			is_eating;
+	s_simulation	*simulation;
+}	t_philo;
+
 typedef struct s_simulation
 {
 	int		philo_count;
@@ -25,6 +44,7 @@ typedef struct s_simulation
 	long	time_to_eat;
 	long	time_to_sleep;
 	int		max_meals;
+	t_philo	*philos;
 }	t_simulation;
 
 bool	is_digit(const char c);
@@ -33,3 +53,5 @@ void	error_exit(const char *msg);
 void	initiate_data(t_simulation *simulation, char **av);
 
 #endif
+
+

@@ -31,7 +31,7 @@ static int	process_input(char *arg)
 	return (res);
 }
 
-void	initiate_data(t_simulation *simulation, char **av)
+static void initiate_simulation(t_simulation *simulation, char **av)
 {
 	simulation->philo_count = process_input(av[0]);
 	simulation->time_to_die = process_input(av[1]) * 1e3;
@@ -41,4 +41,39 @@ void	initiate_data(t_simulation *simulation, char **av)
 		simulation->max_meals = process_input(av[4]);
 	else
 		simulation->max_meals = -1;
+}
+
+static void	initiate_philos(t_simulation *simulation)
+{
+	int	i;
+
+	simulation->philos = safe_malloc(sizeof(t_philo) * simulation->philo_count);
+	i = -1;
+	while (++i < simulation->philo_count)
+	{
+		simulation->philos[i].id = i + 1;
+		simulation->philos[i].meals_count = 0;
+		simulation->philos[i].is_eating = false;
+		simulation->philos[i].simulation = simulation;
+	}
+}
+
+static void	initiate_forks(t_simulation *simulation)
+{
+	int	i;
+
+	simulation->forks = safe_malloc(sizeof(t_fork) * simulation->philo_count);
+	i = -1;
+	while (++i < simulation->philo_count)
+	{
+		simulation->forks[i].id = i;
+		simulation->forks[i].is_taken = false;
+	}
+}
+
+void	initiate_data(t_simulation *simulation, char **av)
+{
+	initiate_simulation(simulation, av);
+	initiate_philos(simulation);
+	initiate_forks(simulation);
 }
