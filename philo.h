@@ -17,15 +17,18 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <limits.h>
+# include <pthread.h>
 
 typedef struct s_simulation	t_simulation;
 typedef struct s_philo		t_philo;
 typedef struct s_fork		t_fork;
 
+typedef pthread_mutex_t	t_mutex;
+
 typedef struct s_fork
 {
 	int		id;
-	bool	is_taken;
+	t_mutex	fork;
 }	t_fork;
 
 typedef struct s_philo
@@ -34,6 +37,8 @@ typedef struct s_philo
 	int				meals_count;
 	long			last_meal;
 	bool			is_eating;
+	t_fork			*left_fork;
+	t_fork			*right_fork;
 	s_simulation	*simulation;
 }	t_philo;
 
