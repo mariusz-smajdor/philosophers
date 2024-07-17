@@ -28,7 +28,7 @@ typedef pthread_mutex_t	t_mutex;
 typedef struct s_fork
 {
 	int		id;
-	t_mutex	fork;
+	t_mutex	mutex;
 }	t_fork;
 
 typedef struct s_philo
