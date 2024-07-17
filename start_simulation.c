@@ -12,12 +12,14 @@
 
 #include "philo.h"
 
-void	*dinner_routine(void *data)
+static void	*dinner_routine(void *data)
 {
 	t_philo	*philo;
 
 	philo = (t_philo *)data;
-    printf("%d\n", philo->id);
+    while (!get_bool(&simulation->mutex, &simulation->philos_ready))
+		;
+	return (NULL);
 }
 
 void	start_simulation(t_simulation *simulation)
@@ -26,5 +28,6 @@ void	start_simulation(t_simulation *simulation)
 
     i = -1;
     while (++i < simulation->philo_count)
-        pthread_create(&simulation->philos[i].thread, NULL, dinner_routine, &simulation->philos[i]);
+        safe_thread(&simulation->philos[i].thread, dinner_routine, &simulation->philos[i], CREATE);
+    set_bool(&simulation->mutex, &simulation->philos_ready, true);
 }

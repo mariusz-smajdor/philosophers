@@ -33,6 +33,7 @@ static int	process_input(char *arg)
 
 static void	initiate_simulation(t_simulation *simulation, char **av)
 {
+	simulation->philos_ready = false;
 	simulation->philo_count = process_input(av[0]);
 	simulation->time_to_die = process_input(av[1]) * 1e3;
 	simulation->time_to_eat = process_input(av[2]) * 1e3;
@@ -41,6 +42,7 @@ static void	initiate_simulation(t_simulation *simulation, char **av)
 		simulation->max_meals = process_input(av[4]);
 	else
 		simulation->max_meals = -1;
+	safe_mutex(&simulation->mutex, INIT);
 }
 
 static void	initiate_philos(t_simulation *simulation)
@@ -69,7 +71,7 @@ static void	initiate_forks(t_simulation *simulation)
 	while (++i < simulation->philo_count)
 	{
 		simulation->forks[i].id = i;
-		pthread_mutex_init(&simulation->forks[i].fork, NULL);
+		pthread_mutex_init(&simulation->forks[i].mutex, NULL);
 	}
 }
 
