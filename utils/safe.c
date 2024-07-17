@@ -22,7 +22,7 @@ void	*safe_malloc(size_t size)
     return (ptr);
 }
 
-void	safe_thread(t_thread *thread, void *(*routine)(void *), void *data, t_opcode opcode)
+void	safe_thread(pthread_t *thread, void *(*routine)(void *), void *data, t_opcode opcode)
 {
 	if (opcode == JOIN)
 		if (pthread_join(*thread, NULL) != 0)
