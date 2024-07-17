@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../philo.h"
 
 void	*safe_malloc(size_t size)
 {
@@ -37,7 +37,7 @@ void	safe_thread(pthread_t *thread, void *(*routine)(void *), void *data, t_opco
 		error_exit("Invalid thread opcode!");
 }
 
-void	safe_mutex(t_mtx *mutex, t_opcode opcode)
+void	safe_mutex(t_mutex *mutex, t_opcode opcode)
 {
 	if (opcode == INIT)
 		if (pthread_mutex_init(mutex, NULL) != 0)
