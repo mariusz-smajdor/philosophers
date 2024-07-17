@@ -19,6 +19,17 @@
 # include <limits.h>
 # include <pthread.h>
 
+typedef enum e_opcode
+{
+	INIT,
+	DESTROY,
+	LOCK,
+	UNLOCK,
+	CREATE,
+	JOIN,
+	DETACH,
+}	t_opcode;
+
 typedef struct s_simulation	t_simulation;
 typedef struct s_philo		t_philo;
 typedef struct s_fork		t_fork;
@@ -58,6 +69,8 @@ bool	is_digit(const char c);
 bool	is_space(const char c);
 void	error_exit(const char *msg);
 void	*safe_malloc(size_t size);
+void	safe_thread(t_thread *thread, void *(*routine)(void *), void *data, t_opcode opcode);
+void	safe_mutex(t_mtx *mutex, t_opcode opcode);
 void	initiate_data(t_simulation *simulation, char **av);
 void	start_simulation(t_simulation *simulation);
 

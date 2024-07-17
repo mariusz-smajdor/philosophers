@@ -3,7 +3,7 @@ CC = cc
 FLAGS = -Wall -Wextra -Werror
 RM = rm
 
-SRCS = philo.c initiate_data.c start_simulation.c safe_functions.c utils.c
+SRCS = philo.c initiate_data.c start_simulation.c utils/*.c
 OBJS = $(SRCS:.c=.o)
 
 all: $(NAME)
