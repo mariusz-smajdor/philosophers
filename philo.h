@@ -59,6 +59,7 @@ bool	is_space(const char c);
 void	error_exit(const char *msg);
 void	*safe_malloc(size_t size);
 void	initiate_data(t_simulation *simulation, char **av);
+void	start_simulation(t_simulation *simulation);
 
 #endif
 

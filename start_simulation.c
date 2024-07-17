@@ -1,24 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   safe_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msmajdor <msmajdor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/05 21:34:47 by msmajdor          #+#    #+#             */
-/*   Updated: 2024/07/12 21:37:20 by msmajdor         ###   ########.fr       */
+/*   Created: 2024/07/15 20:34:47 by msmajdor          #+#    #+#             */
+/*   Updated: 2024/07/15 20:37:20 by msmajdor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int ac, char **av)
+void	*dinner_routine(void *data)
 {
-	t_simulation	simulation;
+	t_philo	*philo;
 
-	if (ac != 5 && ac != 6)
-		error_exit("Wrong number of arguments!");
-	initiate_data(&simulation, av + 1);
-	start_simulation(&simulation);
-	return (0);
+	philo = (t_philo *)data;
+    printf("%d\n", philo->id);
+}
+
+void	start_simulation(t_simulation *simulation)
+{
+    int i;
+
+    i = -1;
+    while (++i < simulation->philo_count)
+        pthread_create(&simulation->philos[i].thread, NULL, dinner_routine, &simulation->philos[i]);
 }
