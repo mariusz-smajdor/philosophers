@@ -61,16 +61,23 @@ typedef struct s_simulation
 	long	time_to_eat;
 	long	time_to_sleep;
 	long	max_meals;
+	bool	philos_ready;
 	t_philo	*philos;
 	t_fork	*forks;
+	t_mutex	mutex;
 }	t_simulation;
 
 bool	is_digit(const char c);
 bool	is_space(const char c);
+void	set_bool(t_mutex *mutex, bool *var, bool value);
+bool	get_bool(t_mutex *mutex, bool *var);
+void	set_long(t_mutex *mutex, long *var, long value);
+long	get_long(t_mutex *mutex, long *var);
 void	error_exit(const char *msg);
 void	*safe_malloc(size_t size);
-void	safe_thread(t_thread *thread, void *(*routine)(void *), void *data, t_opcode opcode);
-void	safe_mutex(t_mtx *mutex, t_opcode opcode);
+void	safe_thread(pthread_t *thread, void *(*routine)(void *), void *data, t_opcode opcode);
+void	safe_mutex(t_mutex *mutex, t_opcode opcode);
+
 void	initiate_data(t_simulation *simulation, char **av);
 void	start_simulation(t_simulation *simulation);
 
