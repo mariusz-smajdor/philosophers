@@ -40,7 +40,7 @@ typedef struct s_philo
 	pthread_t		thread;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
-	s_simulation	*simulation;
+	t_simulation	*simulation;
 }	t_philo;
 
 typedef struct s_simulation
@@ -57,6 +57,7 @@ typedef struct s_simulation
 bool	is_digit(const char c);
 bool	is_space(const char c);
 void	error_exit(const char *msg);
+void	*safe_malloc(size_t size);
 void	initiate_data(t_simulation *simulation, char **av);
 
 #endif
