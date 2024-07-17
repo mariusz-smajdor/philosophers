@@ -38,14 +38,14 @@ typedef pthread_mutex_t	t_mutex;
 
 typedef struct s_fork
 {
-	int		id;
+	long	id;
 	t_mutex	mutex;
 }	t_fork;
 
 typedef struct s_philo
 {
-	int				id;
-	int				meals_count;
+	long			id;
+	long			meals_count;
 	long			last_meal;
 	bool			is_eating;
 	pthread_t		thread;
@@ -56,11 +56,11 @@ typedef struct s_philo
 
 typedef struct s_simulation
 {
-	int		philo_count;
+	long	philo_count;
 	long	time_to_die;
 	long	time_to_eat;
 	long	time_to_sleep;
-	int		max_meals;
+	long	max_meals;
 	t_philo	*philos;
 	t_fork	*forks;
 }	t_simulation;
