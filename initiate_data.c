@@ -56,9 +56,11 @@ static void	initiate_philos(t_simulation *simulation)
 		simulation->philos[i].id = i + 1;
 		simulation->philos[i].meals_count = 0;
 		simulation->philos[i].is_eating = false;
+		simulation->philos[i].full = false;
 		simulation->philos[i].simulation = simulation;
 		simulation->philos[i].left_fork = &simulation->forks[(i + 1) % simulation->philo_count];
 		simulation->philos[i].right_fork = &simulation->forks[i];
+		safe_mutex(&simulation->philos[i].mutex, INIT);
 	}
 }
 

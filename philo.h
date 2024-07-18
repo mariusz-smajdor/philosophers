@@ -18,6 +18,17 @@
 # include <stdbool.h>
 # include <limits.h>
 # include <pthread.h>
+# include <unistd.h>
+# include <sys/time.h>
+
+typedef enum e_status
+{
+	THINKING,
+	SLEEPING,
+	TAKEN_FORK,
+	EATING,
+	DIED,
+}	t_status;
 
 typedef enum e_time_unit
 {
@@ -55,7 +66,9 @@ typedef struct s_philo
 	long			meals_count;
 	long			last_meal;
 	bool			is_eating;
+	bool			full;
 	pthread_t		thread;
+	t_mutex			mutex;
 	t_fork			*left_fork;
 	t_fork			*right_fork;
 	t_simulation	*simulation;
@@ -68,10 +81,13 @@ typedef struct s_simulation
 	long	time_to_eat;
 	long	time_to_sleep;
 	long	max_meals;
+	long	start_time;
 	bool	philos_ready;
+	bool	simulation_over;
 	t_philo	*philos;
 	t_fork	*forks;
 	t_mutex	mutex;
+	t_mutex print_mutex;
 }	t_simulation;
 
 bool	is_digit(const char c);
@@ -82,6 +98,7 @@ void	set_long(t_mutex *mutex, long *var, long value);
 long	get_long(t_mutex *mutex, long *var);
 void	error_exit(const char *msg);
 long	get_time(t_time_unit unit);
+void	super_usleep(long sec, t_simulation *simulation);
 void	*safe_malloc(size_t size);
 void	safe_thread(pthread_t *thread, void *(*routine)(void *), void *data, t_opcode opcode);
 void	safe_mutex(t_mutex *mutex, t_opcode opcode);
