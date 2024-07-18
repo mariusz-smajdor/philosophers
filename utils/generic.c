@@ -12,6 +12,28 @@
 
 #include "../philo.h"
 
+void	super_usleep(long sec, t_simulation *simulation)
+{
+	long	start_time;
+	long	passed_time;
+	long	left_time;
+
+	start_time = get_time(MICROSECOND);
+	while (get_time(MICROSECOND) - start_time < sec)
+	{
+		if (simulation->simulation_over)
+			break ;
+		passed_time = get_time(MICROSECOND) - start_time;
+		left_time = sec - passed_time;
+
+		if (left_time > 1000)
+			usleep(left_time / 2);
+		else
+			while (get_time(MICROSECOND) - start_time < sec)
+				;
+	}
+}
+
 long	get_time(t_time_unit unit)
 {
 	struct timeval	time;
