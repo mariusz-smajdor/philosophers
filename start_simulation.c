@@ -14,20 +14,22 @@
 
 static void	*dinner_routine(void *data)
 {
-	t_philo	*philo;
+	t_philo			*philo;
+	t_simulation	*simulation;
 
 	philo = (t_philo *)data;
-    while (!get_bool(&simulation->mutex, &simulation->philos_ready))
+	simulation = philo->simulation;
+	while (!get_bool(&simulation->mutex, &simulation->philos_ready))
 		;
 	return (NULL);
 }
 
 void	start_simulation(t_simulation *simulation)
 {
-    int i;
+	int	i;
 
-    i = -1;
-    while (++i < simulation->philo_count)
-        safe_thread(&simulation->philos[i].thread, dinner_routine, &simulation->philos[i], CREATE);
-    set_bool(&simulation->mutex, &simulation->philos_ready, true);
+	i = -1;
+	while (++i < simulation->philo_count)
+		safe_thread(&simulation->philos[i].thread, &dinner_routine, &simulation->philos[i], CREATE);
+	set_bool(&simulation->mutex, &simulation->philos_ready, true);
 }
