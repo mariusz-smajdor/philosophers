@@ -19,6 +19,13 @@
 # include <limits.h>
 # include <pthread.h>
 
+typedef enum e_time_unit
+{
+	SECOND,
+	MILLISECOND,
+	MICROSECOND,
+}	t_time_unit;
+
 typedef enum e_opcode
 {
 	INIT,
@@ -74,6 +81,7 @@ bool	get_bool(t_mutex *mutex, bool *var);
 void	set_long(t_mutex *mutex, long *var, long value);
 long	get_long(t_mutex *mutex, long *var);
 void	error_exit(const char *msg);
+long	get_time(t_time_unit unit);
 void	*safe_malloc(size_t size);
 void	safe_thread(pthread_t *thread, void *(*routine)(void *), void *data, t_opcode opcode);
 void	safe_mutex(t_mutex *mutex, t_opcode opcode);
