@@ -12,6 +12,23 @@
 
 #include "../philo.h"
 
+static void	eat(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->first_fork->mutex); // protect lock
+	printf("Philo %ld has taken a fork\n", philo->id);
+	pthread_mutex_lock(&philo->second_fork->mutex); // protect lock
+	printf("Philo %ld has taken a fork\n", philo->id);
+	printf("Philo %ld is eating\n", philo->id);
+	usleep(5000000);
+	pthread_mutex_unlock(&philo->first_fork->mutex); // protect unlock
+	pthread_mutex_unlock(&philo->second_fork->mutex); // protect unlock
+}
+
+static void	think(t_philo *philo)
+{
+	printf("Philo %ld is thinking\n", philo->id);
+}
+
 static void	*philo_routine(void *data)
 {
 	t_philo	*philo;
@@ -21,8 +38,8 @@ static void	*philo_routine(void *data)
 		;
 	while (1)
 	{
-		printf("Philo routine started\n");
-		usleep(10000000);
+		think(philo);
+		eat(philo);
 	}
 	return (NULL);
 }
