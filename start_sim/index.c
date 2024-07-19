@@ -12,9 +12,33 @@
 
 #include "../philo.h"
 
+static void	*philo_routine(void *data)
+{
+	t_philo	*philo;
+
+	philo = (t_philo *)data;
+	while (!philo->sim->ready)
+		;
+	while (1)
+	{
+		printf("Philo routine started\n");
+		usleep(10000000);
+	}
+	return (NULL);
+}
+
 void	start_sim(t_sim *sim)
 {
-	(void)sim;
+	int	i;
 
-	printf("Start simulation\n");
+	i = -1;
+	while (++i < sim->philo_num)
+	{
+		if (pthread_create(&sim->philos[i].thread, NULL, philo_routine, &sim->philos[i]) != 0)
+			error_exit("Thread creation failed!\n");
+	}
+	sim->ready = true;
+	i = -1;
+	while (++i < sim->philo_num)
+		pthread_join(sim->philos[i].thread, NULL); // protect join
 }

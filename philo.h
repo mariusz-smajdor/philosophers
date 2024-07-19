@@ -50,6 +50,7 @@ typedef struct s_sim
 	long	time_to_eat;
 	long	time_to_sleep;
 	long	max_meals;
+	bool	ready;
 	t_fork	*forks;
 	t_philo	*philos;
 }	t_sim;
