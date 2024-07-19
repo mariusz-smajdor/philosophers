@@ -30,8 +30,8 @@ typedef struct s_sim t_sim;
 typedef struct s_philo
 {
 	long		id;
-	t_fork		*left_fork;
-	t_fork		*right_fork;
+	t_fork		*first_fork;
+	t_fork		*second_fork;
 	t_sim		*sim;
 	t_mtx		mutex;
 	t_thread	thread;

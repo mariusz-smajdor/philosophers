@@ -31,6 +31,20 @@ static int	process_input(char *arg)
 	return (res);
 }
 
+static void	assign_forks(t_sim *sim, t_philo *philo, int pos)
+{
+	if (philo->id % 2 == 0)
+	{
+		philo->first_fork = &sim->forks[pos];
+		philo->second_fork = &sim->forks[(pos + 1) % sim->philo_num];
+	}
+	else
+	{
+		philo->first_fork = &sim->forks[(pos + 1) % sim->philo_num];
+		philo->second_fork = &sim->forks[pos];
+	}
+}
+
 static void	init_philos(t_sim *sim)
 {
 	int	i;
@@ -42,9 +56,8 @@ static void	init_philos(t_sim *sim)
 	{
 		philo = &sim->philos[i];
 		philo->id = i + 1;
-		philo->left_fork = &sim->forks[i];
-		philo->right_fork = &sim->forks[(i + 1) % sim->philo_num];
 		philo->sim = sim;
+		assign_forks(sim, philo, i);
 		if (pthread_mutex_init(&philo->mutex, NULL) != 0)
 			error_exit("Mutex initialization failed!");
 	}
