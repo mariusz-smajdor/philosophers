@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-void	safe_mutex(t_mutex *mutex, t_opcode opcode)
+void	safe_mutex(t_mtx *mutex, t_opcode opcode)
 {
 	if (opcode == INIT)
 		if (pthread_mutex_init(mutex, NULL) != 0)
