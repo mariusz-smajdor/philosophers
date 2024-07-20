@@ -61,11 +61,14 @@ long	get_current_time_in_millisec();
 void	error_exit(const char *msg);
 void	*safe_malloc(size_t size);
 
+void	init_data(t_sim *sim, char **args);
 bool	is_digit(const char c);
 bool	is_space(const char c);
-void	init_data(t_sim *sim, char **args);
 
 void	start_sim(t_sim *sim);
+void	think(t_philo *philo, long start_time);
+void	eat(t_philo *philo, t_sim *sim);
+void	nap(t_philo *philo, t_sim *sim);
 
 #endif
 
