@@ -19,6 +19,7 @@
 # include <limits.h>
 # include <pthread.h>
 # include <unistd.h>
+# include <sys/time.h>
 
 typedef pthread_t t_thread;
 typedef pthread_mutex_t	t_mtx;
@@ -50,17 +51,19 @@ typedef struct s_sim
 	long	time_to_eat;
 	long	time_to_sleep;
 	long	max_meals;
+	long	start_time;
 	bool	ready;
 	t_fork	*forks;
 	t_philo	*philos;
 }	t_sim;
 
+long	get_current_time_in_millisec();
 void	error_exit(const char *msg);
 void	*safe_malloc(size_t size);
 
-void	init_data(t_sim *sim, char **args);
 bool	is_digit(const char c);
 bool	is_space(const char c);
+void	init_data(t_sim *sim, char **args);
 
 void	start_sim(t_sim *sim);
 

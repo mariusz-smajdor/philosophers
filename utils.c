@@ -12,6 +12,16 @@
 
 #include "philo.h"
 
+long	get_current_time_in_millisec()
+{
+	struct timeval	time;
+	long			res;
+
+	gettimeofday(&time, NULL);
+	res = time.tv_sec * 1000 + time.tv_usec / 1000;
+	return (res);
+}
+
 void	error_exit(const char *msg)
 {
 	printf("Error: %s\n", msg);
