@@ -59,6 +59,10 @@ typedef struct s_sim
 
 typedef enum e_opcode
 {
+	INIT,
+	DESTROY,
+	LOCK,
+	UNLOCK,
 	CREATE,
 	JOIN,
 	DETACH,
