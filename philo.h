@@ -21,7 +21,7 @@
 # include <unistd.h>
 # include <sys/time.h>
 
-typedef pthread_t t_thread;
+typedef pthread_t t_thrd;
 typedef pthread_mutex_t	t_mtx;
 
 typedef struct s_philo t_philo;
@@ -30,12 +30,13 @@ typedef struct s_sim t_sim;
 
 typedef struct s_philo
 {
-	long		id;
-	t_fork		*first_fork;
-	t_fork		*second_fork;
-	t_sim		*sim;
-	t_mtx		mutex;
-	t_thread	thread;
+	long	id;
+	long	last_meal;
+	t_fork	*first_fork;
+	t_fork	*second_fork;
+	t_sim	*sim;
+	t_mtx	mutex;
+	t_thrd	thread;
 }	t_philo;
 
 typedef struct s_fork
@@ -53,8 +54,10 @@ typedef struct s_sim
 	long	max_meals;
 	long	start_time;
 	bool	ready;
+	bool	over;
 	t_fork	*forks;
 	t_philo	*philos;
+	t_thrd	monitor;
 }	t_sim;
 
 typedef enum e_opcode
@@ -68,11 +71,12 @@ typedef enum e_opcode
 	DETACH,
 }	t_opcode;
 
+long	get_timestamp(long time);
 long	get_current_time_in_millisec();
 void	error_exit(const char *msg);
 void	*safe_malloc(size_t size);
 void	safe_mutex(t_mtx *mutex, t_opcode opcode);
-void	safe_thread(t_thread *thread, void *(*routine)(void *), void *data, t_opcode opcode);
+void	safe_thread(t_thrd *thread, void *(*routine)(void *), void *data, t_opcode opcode);
 
 void	init_data(t_sim *sim, char **args);
 bool	is_digit(const char c);

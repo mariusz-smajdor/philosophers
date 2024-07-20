@@ -79,6 +79,7 @@ static void	init_forks(t_sim *sim)
 
 void	init_data(t_sim *sim, char **av)
 {
+	sim->over = false;
 	sim->ready = false;
 	sim->philo_num = process_input(av[0]);
 	sim->time_to_die = process_input(av[1]) * 1e3;

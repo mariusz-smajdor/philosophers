@@ -12,6 +12,11 @@
 
 #include "philo.h"
 
+long	get_timestamp(long time)
+{
+	return (get_current_time_in_millisec() - time);
+}
+
 long	get_current_time_in_millisec()
 {
 	struct timeval	time;

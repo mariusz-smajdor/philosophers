@@ -12,11 +12,6 @@
 
 #include "../philo.h"
 
-inline static long get_timestamp(long start_time)
-{
-	return (get_current_time_in_millisec() - start_time);
-}
-
 void	think(t_philo *philo, long start_time)
 {
 	printf("%ld Philo %ld is thinking\n", get_timestamp(start_time), philo->id);
