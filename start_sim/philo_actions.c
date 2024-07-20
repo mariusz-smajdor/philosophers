@@ -22,21 +22,20 @@ void	think(t_philo *philo, long start_time)
 	printf("%ld Philo %ld is thinking\n", get_timestamp(start_time), philo->id);
 }
 
-
 void	eat(t_philo *philo, t_sim *sim)
 {
-	pthread_mutex_lock(&philo->first_fork->mutex); // protect lock
+	safe_mutex(&philo->first_fork->mutex, LOCK);
 	printf("%ld Philo %ld has taken a fork\n", get_timestamp(sim->start_time), philo->id);
-	pthread_mutex_lock(&philo->second_fork->mutex); // protect lock
+	safe_mutex(&philo->second_fork->mutex, LOCK);
 	printf("%ld Philo %ld has taken a fork\n", get_timestamp(sim->start_time), philo->id);
 	printf("%ld Philo %ld is eating\n", get_timestamp(sim->start_time), philo->id);
-	usleep(sim->time_to_eat * 5); // * 5 for testing
-	pthread_mutex_unlock(&philo->first_fork->mutex); // protect unlock
-	pthread_mutex_unlock(&philo->second_fork->mutex); // protect unlock
+	usleep(sim->time_to_eat);
+	safe_mutex(&philo->first_fork->mutex, UNLOCK);
+	safe_mutex(&philo->second_fork->mutex, UNLOCK);
 }
 
 void	nap(t_philo *philo, t_sim *sim)
 {
 	printf("%ld Philo %ld is sleeping\n", get_timestamp(sim->start_time), philo->id);
-	usleep(philo->sim->time_to_sleep * 5); // * 5 for testing
+	usleep(philo->sim->time_to_sleep);
 }

@@ -12,6 +12,12 @@
 
 #include "../philo.h"
 
+static void await_philos(t_sim *sim)
+{
+	while (!sim->ready)
+		;
+}
+
 static void	*philo_routine(void *data)
 {
 	t_philo	*philo;
@@ -19,8 +25,7 @@ static void	*philo_routine(void *data)
 
 	philo = (t_philo *)data;
 	sim = philo->sim;
-	while (!sim->ready)
-		;
+	await_philos(sim);
 	while (1)
 	{
 		think(philo, sim->start_time);
@@ -36,11 +41,10 @@ void	start_sim(t_sim *sim)
 
 	i = -1;
 	while (++i < sim->philo_num)
-		if (pthread_create(&sim->philos[i].thread, NULL, philo_routine, &sim->philos[i]) != 0)
-			error_exit("Thread creation failed!\n");
+		safe_thread(&sim->philos[i].thread, philo_routine, &sim->philos[i], CREATE);
 	sim->ready = true;
 	sim->start_time = get_current_time_in_millisec();
 	i = -1;
 	while (++i < sim->philo_num)
-		pthread_join(sim->philos[i].thread, NULL); // protect join
+		safe_thread(&sim->philos[i].thread, NULL, NULL, JOIN);
 }
