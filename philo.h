@@ -57,6 +57,13 @@ typedef struct s_sim
 	t_philo	*philos;
 }	t_sim;
 
+typedef enum e_opcode
+{
+	CREATE,
+	JOIN,
+	DETACH,
+}	t_opcode;
+
 long	get_current_time_in_millisec();
 void	error_exit(const char *msg);
 void	*safe_malloc(size_t size);
