@@ -24,7 +24,10 @@ void	eat(t_philo *philo, t_sim *sim)
 	safe_mutex(&philo->second_fork->mutex, LOCK);
 	printf("%ld Philo %ld has taken a fork\n", get_timestamp(sim->start_time), philo->id);
 	printf("%ld Philo %ld is eating\n", get_timestamp(sim->start_time), philo->id);
+	philo->is_eating = true;
 	usleep(sim->time_to_eat);
+	philo->last_meal = get_current_time_in_millisec();
+	philo->is_eating = false;
 	safe_mutex(&philo->first_fork->mutex, UNLOCK);
 	safe_mutex(&philo->second_fork->mutex, UNLOCK);
 }

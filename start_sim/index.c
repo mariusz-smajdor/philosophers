@@ -24,9 +24,15 @@ static void	*monitor(void *data)
 		i = -1;
 		while (++i < sim->philo_num)
 		{
+			// long	get_timestamp(long time)
+			// {
+			// 	return (get_current_time_in_millisec() - time);
+			// }
 			philo = &sim->philos[i];
-			if (get_timestamp(philo->last_meal) >= sim->time_to_die)
+			if (sim->time_to_die < get_timestamp(philo->last_meal) && !philo->is_eating && philo->last_meal != -1)
 			{
+							printf("\n%ld\n", get_current_time_in_millisec() - philo->last_meal);
+				printf("\n%ld\n", get_timestamp(philo->last_meal));
 				printf("%ld Philo %ld died\n", get_timestamp(sim->start_time), philo->id);
 				sim->over = true;
 				return (NULL);

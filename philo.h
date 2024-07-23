@@ -32,6 +32,7 @@ typedef struct s_philo
 {
 	long	id;
 	long	last_meal;
+	bool	is_eating;
 	t_fork	*first_fork;
 	t_fork	*second_fork;
 	t_sim	*sim;

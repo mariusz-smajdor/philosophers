@@ -57,6 +57,8 @@ static void	init_philos(t_sim *sim)
 		philo = &sim->philos[i];
 		philo->id = i + 1;
 		philo->sim = sim;
+		philo->is_eating = false;
+		philo->last_meal = -1;
 		assign_forks(sim, philo, i);
 		if (pthread_mutex_init(&philo->mutex, NULL) != 0)
 			error_exit("Mutex initialization failed!");
