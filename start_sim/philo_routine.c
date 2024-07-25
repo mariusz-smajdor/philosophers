@@ -14,10 +14,10 @@
 
 static void print_status(const char *msg, t_philo *philo, t_sim *sim)
 {
-	safe_mutex(&sim->mutex, LOCK);
+	pthread_mutex_lock(&sim->mutex);
 	if (!sim->over)
 		printf("%ld %ld %s\n", get_timestamp(sim->start_time), philo->id, msg);
-	safe_mutex(&sim->mutex, UNLOCK);
+	pthread_mutex_unlock(&sim->mutex);
 }
 
 static void	think(t_philo *philo, t_sim *sim)
@@ -33,9 +33,9 @@ static void	nap(t_philo *philo, t_sim *sim)
 
 static void	eat(t_philo *philo, t_sim *sim)
 {
-	safe_mutex(&philo->first_fork->mutex, LOCK);
+	pthread_mutex_lock(&philo->first_fork->mutex);
 	print_status("has taken a fork", philo, sim);
-	safe_mutex(&philo->second_fork->mutex, LOCK);
+	pthread_mutex_lock(&philo->second_fork->mutex);
 	print_status("has taken a fork", philo, sim);
 	philo->is_eating = true;
 	print_status("is eating", philo, sim);
@@ -43,8 +43,8 @@ static void	eat(t_philo *philo, t_sim *sim)
 	philo->is_eating = false;
 	philo->last_meal = get_current_time_in_millisec();
     philo->meals++;
-	safe_mutex(&philo->first_fork->mutex, UNLOCK);
-	safe_mutex(&philo->second_fork->mutex, UNLOCK);
+	pthread_mutex_unlock(&philo->first_fork->mutex);
+	pthread_mutex_unlock(&philo->second_fork->mutex);
 }
 
 void	*philo_routine(void *data)

@@ -19,10 +19,10 @@ void	clear_data(t_sim *sim)
 	i = -1;
 	while (++i < sim->philo_num)
 	{
-		safe_mutex(&sim->philos[i].first_fork->mutex, DESTROY);
-		safe_mutex(&sim->philos[i].second_fork->mutex, DESTROY);
+		pthread_mutex_destroy(&sim->philos[i].first_fork->mutex);
+		pthread_mutex_destroy(&sim->philos[i].second_fork->mutex);
 	}
-	safe_mutex(&sim->mutex, DESTROY);
+	pthread_mutex_destroy(&sim->mutex);
 	free(sim->philos);
 	free(sim->forks);
 }

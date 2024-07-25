@@ -17,7 +17,7 @@ int	main(int ac, char **av)
 	t_sim	sim;
 
 	if (ac != 5 && ac != 6)
-		error_exit("Wrong number of arguments!");
+		return (printf("Wrong number of arguments!\n"));
 	init_data(&sim, av + 1);
 	start_sim(&sim);
 	clear_data(&sim);

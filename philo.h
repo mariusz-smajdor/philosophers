@@ -76,10 +76,7 @@ typedef enum e_opcode
 
 long	get_timestamp(long time);
 long	get_current_time_in_millisec();
-void	error_exit(const char *msg);
 void	*safe_malloc(size_t size);
-void	safe_mutex(t_mtx *mutex, t_opcode opcode);
-void	safe_thread(t_thrd *thread, void *(*routine)(void *), void *data, t_opcode opcode);
 
 void	init_data(t_sim *sim, char **args);
 bool	is_digit(const char c);

@@ -21,13 +21,8 @@ static int	process_input(char *arg)
 		arg++;
 	while (*arg == '+')
 		arg++;
-	if (!is_digit(*arg))
-		error_exit("Every argument must be a positive number!");
-	else
-		while (is_digit(*arg))
-			res = res * 10 + *arg++ - '0';
-	if (res > INT_MAX)
-		error_exit("Every argument must be less or equal to INT_MAX!");
+	while (is_digit(*arg))
+		res = res * 10 + *arg++ - '0';
 	return (res);
 }
 
@@ -60,8 +55,7 @@ static void	init_philos(t_sim *sim)
 		philo->is_eating = false;
 		philo->meals = 0;
 		assign_forks(sim, philo, i);
-		if (pthread_mutex_init(&philo->mutex, NULL) != 0)
-			error_exit("Mutex initialization failed!");
+		pthread_mutex_init(&philo->mutex, NULL);
 	}
 }
 
@@ -74,8 +68,7 @@ static void	init_forks(t_sim *sim)
 	while (++i < sim->philo_num)
 	{
 		sim->forks[i].id = i;
-		if (pthread_mutex_init(&sim->forks[i].mutex, NULL) != 0)
-			error_exit("Mutex initialization failed!");
+		pthread_mutex_init(&sim->forks[i].mutex, NULL);
 	}
 }
 
@@ -93,5 +86,5 @@ void	init_data(t_sim *sim, char **av)
 		sim->max_meals = -1;
 	init_forks(sim);
 	init_philos(sim);
-	safe_mutex(&sim->mutex, INIT);
+	pthread_mutex_init(&sim->mutex, NULL);
 }

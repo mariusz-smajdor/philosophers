@@ -33,9 +33,9 @@ static void check_meals(t_sim *sim)
 	}
 	if (all_full)
 	{
-		safe_mutex(&sim->mutex, LOCK);
+		pthread_mutex_lock(&sim->mutex);
 		sim->over = true;
-		safe_mutex(&sim->mutex, UNLOCK);
+		pthread_mutex_unlock(&sim->mutex);
 	}
 }
 
@@ -51,10 +51,10 @@ static void	check_death(t_sim *sim)
 		if (get_timestamp(philo->last_meal) >= (sim->time_to_die / 1e3)
 			&& !philo->is_eating)
 		{
-			safe_mutex(&sim->mutex, LOCK);
+			pthread_mutex_lock(&sim->mutex);
 			printf("%ld %ld died\n", get_timestamp(sim->start_time), philo->id);
 			sim->over = true;
-			safe_mutex(&sim->mutex, UNLOCK);
+			pthread_mutex_unlock(&sim->mutex);
 			return ;
 		}
 		usleep(1000);

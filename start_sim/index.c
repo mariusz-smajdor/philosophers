@@ -31,11 +31,11 @@ void	start_sim(t_sim *sim)
 	if (sim->max_meals == 0)
 		return ;
 	while (++i < sim->philo_num)
-		safe_thread(&sim->philos[i].thread, philo_routine, &sim->philos[i], CREATE);
+		pthread_create(&sim->philos[i].thread, NULL, philo_routine, &sim->philos[i]);
 	update_sim_data(sim);
-	safe_thread(&sim->monitor, monitor, sim, CREATE);
+	pthread_create(&sim->monitor, NULL, monitor, sim);
 	i = -1;
 	while (++i < sim->philo_num)
-		safe_thread(&sim->philos[i].thread, NULL, NULL, JOIN);
-	safe_thread(&sim->monitor, NULL, NULL, JOIN);
+		pthread_join(sim->philos[i].thread, NULL);
+	pthread_join(sim->monitor, NULL);
 }

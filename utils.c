@@ -27,8 +27,12 @@ long	get_current_time_in_millisec()
 	return (res);
 }
 
-void	error_exit(const char *msg)
+void	*safe_malloc(size_t size)
 {
-	printf("Error: %s\n", msg);
-	exit(EXIT_FAILURE);
+	void	*ptr;
+
+	ptr = malloc(size);
+	if (!ptr)
+		return (NULL);
+	return (ptr);
 }
