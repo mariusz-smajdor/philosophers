@@ -12,33 +12,9 @@
 
 #include "../philo.h"
 
-static void	*monitor(void *data)
+static void	eat(t_philo *philo, t_sim *sim)
 {
-	t_sim	*sim;
-	t_philo *philo;
-	int i;
-
-	sim = (t_sim *)data;
-	while (1)
-	{
-		i = -1;
-		while (++i < sim->philo_num)
-		{
-			// long	get_timestamp(long time)
-			// {
-			// 	return (get_current_time_in_millisec() - time);
-			// }
-			philo = &sim->philos[i];
-			if (sim->time_to_die < get_timestamp(philo->last_meal) && !philo->is_eating && philo->last_meal != -1)
-			{
-							printf("\n%ld\n", get_current_time_in_millisec() - philo->last_meal);
-				printf("\n%ld\n", get_timestamp(philo->last_meal));
-				printf("%ld Philo %ld died\n", get_timestamp(sim->start_time), philo->id);
-				sim->over = true;
-				return (NULL);
-			}
-		}
-	}
+	// TODO
 }
 
 static void await_philos(t_sim *sim)
@@ -56,11 +32,7 @@ static void	*philo_routine(void *data)
 	sim = philo->sim;
 	await_philos(sim);
 	while (!sim->over)
-	{
-		think(philo, sim->start_time);
 		eat(philo, sim);
-		nap(philo, sim);
-	}
 	return (NULL);
 }
 
@@ -77,5 +49,4 @@ void	start_sim(t_sim *sim)
 	i = -1;
 	while (++i < sim->philo_num)
 		safe_thread(&sim->philos[i].thread, NULL, NULL, JOIN);
-	safe_thread(&sim->monitor, NULL, NULL, JOIN);
 }
