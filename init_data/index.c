@@ -93,4 +93,5 @@ void	init_data(t_sim *sim, char **av)
 		sim->max_meals = -1;
 	init_forks(sim);
 	init_philos(sim);
+	safe_mutex(&sim->mutex, INIT);
 }
