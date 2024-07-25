@@ -37,4 +37,5 @@ void	start_sim(t_sim *sim)
 	i = -1;
 	while (++i < sim->philo_num)
 		safe_thread(&sim->philos[i].thread, NULL, NULL, JOIN);
+	safe_thread(&sim->monitor, NULL, NULL, JOIN);
 }

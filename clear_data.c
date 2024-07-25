@@ -1,25 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   safe_functions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msmajdor <msmajdor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/05 21:34:47 by msmajdor          #+#    #+#             */
-/*   Updated: 2024/07/12 21:37:20 by msmajdor         ###   ########.fr       */
+/*   Created: 1970/01/01 00:00:00 by msmajdor          #+#    #+#             */
+/*   Updated: 1970/01/01 00:00:00 by msmajdor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int ac, char **av)
+void	clear_data(t_sim *sim)
 {
-	t_sim	sim;
+	int	i;
 
-	if (ac != 5 && ac != 6)
-		error_exit("Wrong number of arguments!");
-	init_data(&sim, av + 1);
-	start_sim(&sim);
-	clear_data(&sim);
-	return (0);
+	i = -1;
+	while (++i < sim->philo_num)
+	{
+		safe_mutex(&sim->philos[i].first_fork->mutex, DESTROY);
+		safe_mutex(&sim->philos[i].second_fork->mutex, DESTROY);
+	}
+	safe_mutex(&sim->mutex, DESTROY);
+	free(sim->philos);
+	free(sim->forks);
 }

@@ -89,4 +89,6 @@ void	start_sim(t_sim *sim);
 void	*philo_routine(void *data);
 void	*monitor(void *data);
 
+void	clear_data(t_sim *sim);
+
 #endif
