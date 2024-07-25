@@ -32,6 +32,7 @@ typedef struct s_philo
 {
 	long	id;
 	long	last_meal;
+	long	meals;
 	bool	is_eating;
 	t_fork	*first_fork;
 	t_fork	*second_fork;
@@ -84,10 +85,7 @@ bool	is_digit(const char c);
 bool	is_space(const char c);
 
 void	start_sim(t_sim *sim);
-void	think(t_philo *philo, long start_time);
-void	eat(t_philo *philo, t_sim *sim);
-void	nap(t_philo *philo, t_sim *sim);
+void	*philo_routine(void *data);
+void	*monitor(void *data);
 
 #endif
-
-

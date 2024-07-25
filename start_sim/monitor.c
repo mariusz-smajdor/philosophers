@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   index.c                                            :+:      :+:    :+:   */
+/*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: msmajdor <msmajdor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,27 +12,33 @@
 
 #include "../philo.h"
 
-static void	update_sim_data(t_sim *sim)
+static void	check_starvation(t_sim *sim)
 {
-	int	i;
+	t_philo	*philo;
+	int		i;
 
 	i = -1;
-	sim->start_time = get_current_time_in_millisec();
 	while (++i < sim->philo_num)
-		sim->philos[i].last_meal = sim->start_time;
-	sim->ready = true;
+	{
+		philo = &sim->philos[i];
+		if (get_timestamp(philo->last_meal) >= (sim->time_to_die / 1e3)
+			&& !philo->is_eating)
+		{
+			printf("%ld %ld died\n", get_timestamp(sim->start_time), philo->id);
+			sim->over = true;
+		}
+		usleep(1000);
+	}
 }
 
-void	start_sim(t_sim *sim)
+void	*monitor(void *data)
 {
-	int	i;
+	t_sim *sim;
 
-	i = -1;
-	while (++i < sim->philo_num)
-		safe_thread(&sim->philos[i].thread, philo_routine, &sim->philos[i], CREATE);
-	update_sim_data(sim);
-	safe_thread(&sim->monitor, monitor, sim, CREATE);
-	i = -1;
-	while (++i < sim->philo_num)
-		safe_thread(&sim->philos[i].thread, NULL, NULL, JOIN);
+	sim = (t_sim *)data;
+	while (!sim->over)
+	{
+		check_starvation(sim);
+	}
+	return (NULL);
 }
