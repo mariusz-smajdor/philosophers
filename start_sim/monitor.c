@@ -20,10 +20,12 @@ static void check_meals(t_sim *sim)
 
 	all_full = true;
 	i = -1;
+	if (sim->max_meals == -1)
+		return ;
 	while (++i < sim->philo_num)
 	{
 		philo = &sim->philos[i];
-		if (sim->max_meals != -1 && philo->meals < sim->max_meals)
+		if (philo->meals < sim->max_meals)
 		{
 			all_full = false;
 			break ;
