@@ -12,41 +12,39 @@
 
 #include "../philo.h"
 
-// void	think(t_philo *philo, long start_time);
-// void	eat(t_philo *philo, t_sim *sim);
-// void	nap(t_philo *philo, t_sim *sim);
+static void print_status(const char *msg, t_philo *philo, t_sim *sim)
+{
+	safe_mutex(&sim->mutex, LOCK);
+	if (!sim->over)
+		printf("%ld %ld %s\n", get_timestamp(sim->start_time), philo->id, msg);
+	safe_mutex(&sim->mutex, UNLOCK);
+}
 
-// increase the number of meals eaten by the philosopher
-// add is_eating
-
-
+static void	think(t_philo *philo, t_sim *sim)
+{
+	print_status("is thinking", philo, sim);
+}
 
 static void	nap(t_philo *philo, t_sim *sim)
 {
-    printf("%ld %ld is sleeping\n", get_timestamp(sim->start_time), philo->id);
-    usleep(sim->time_to_sleep);
+	print_status("is sleeping", philo, sim);
+	usleep(sim->time_to_sleep);
 }
 
 static void	eat(t_philo *philo, t_sim *sim)
 {
 	safe_mutex(&philo->first_fork->mutex, LOCK);
-	printf("%ld %ld has taken a fork\n", get_timestamp(sim->start_time), philo->id);
+	print_status("has taken a fork", philo, sim);
 	safe_mutex(&philo->second_fork->mutex, LOCK);
-	printf("%ld %ld has taken a fork\n", get_timestamp(sim->start_time), philo->id);
+	print_status("has taken a fork", philo, sim);
 	philo->is_eating = true;
-	printf("%ld %ld is eating\n", get_timestamp(sim->start_time), philo->id);
+	print_status("is eating", philo, sim);
 	usleep(sim->time_to_eat);
 	philo->is_eating = false;
 	philo->last_meal = get_current_time_in_millisec();
     philo->meals++;
 	safe_mutex(&philo->first_fork->mutex, UNLOCK);
 	safe_mutex(&philo->second_fork->mutex, UNLOCK);
-}
-
-static void await_philos(t_sim *sim)
-{
-	while (!sim->ready)
-		;
 }
 
 void	*philo_routine(void *data)
@@ -56,11 +54,13 @@ void	*philo_routine(void *data)
 
 	philo = (t_philo *)data;
 	sim = philo->sim;
-	await_philos(sim);
+	while (!sim->ready)
+		;
 	while (!sim->over)
     {
 		eat(philo, sim);
 		nap(philo, sim);
+		think(philo, sim);
     }
 	return (NULL);
 }

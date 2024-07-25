@@ -60,6 +60,7 @@ typedef struct s_sim
 	t_fork	*forks;
 	t_philo	*philos;
 	t_thrd	monitor;
+	t_mtx	mutex;
 }	t_sim;
 
 typedef enum e_opcode

@@ -12,7 +12,7 @@
 
 #include "../philo.h"
 
-static void	check_starvation(t_sim *sim)
+static void	check_death(t_sim *sim)
 {
 	t_philo	*philo;
 	int		i;
@@ -24,8 +24,11 @@ static void	check_starvation(t_sim *sim)
 		if (get_timestamp(philo->last_meal) >= (sim->time_to_die / 1e3)
 			&& !philo->is_eating)
 		{
+			safe_mutex(&sim->mutex, LOCK);
 			printf("%ld %ld died\n", get_timestamp(sim->start_time), philo->id);
 			sim->over = true;
+			safe_mutex(&sim->mutex, UNLOCK);
+			return ;
 		}
 		usleep(1000);
 	}
@@ -38,7 +41,7 @@ void	*monitor(void *data)
 	sim = (t_sim *)data;
 	while (!sim->over)
 	{
-		check_starvation(sim);
+		check_death(sim);
 	}
 	return (NULL);
 }
