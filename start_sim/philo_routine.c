@@ -6,7 +6,7 @@
 /*   By: msmajdor <msmajdor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by msmajdor          #+#    #+#             */
-/*   Updated: 2024/07/25 20:04:55 by msmajdor         ###   ########.fr       */
+/*   Updated: 2024/07/25 20:49:07 by msmajdor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,13 @@ static void	eat(t_philo *philo, t_sim *sim)
 {
 	pthread_mutex_lock(&philo->first_fork->mutex);
 	print_status("has taken a fork", philo, sim);
+	if (philo->second_fork->id == philo->first_fork->id)
+	{
+		usleep(sim->time_to_die);
+		print_status("died", philo, sim);
+		sim->over = true;
+		return ;
+	}
 	pthread_mutex_lock(&philo->second_fork->mutex);
 	print_status("has taken a fork", philo, sim);
 	philo->is_eating = true;
