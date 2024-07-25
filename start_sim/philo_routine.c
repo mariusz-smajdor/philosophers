@@ -6,13 +6,13 @@
 /*   By: msmajdor <msmajdor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by msmajdor          #+#    #+#             */
-/*   Updated: 1970/01/01 00:00:00 by msmajdor         ###   ########.fr       */
+/*   Updated: 2024/07/25 20:04:55 by msmajdor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../philo.h"
 
-static void print_status(const char *msg, t_philo *philo, t_sim *sim)
+static void	print_status(const char *msg, t_philo *philo, t_sim *sim)
 {
 	pthread_mutex_lock(&sim->mutex);
 	if (!sim->over)
@@ -42,7 +42,7 @@ static void	eat(t_philo *philo, t_sim *sim)
 	usleep(sim->time_to_eat);
 	philo->is_eating = false;
 	philo->last_meal = get_current_time_in_millisec();
-    philo->meals++;
+	philo->meals++;
 	pthread_mutex_unlock(&philo->first_fork->mutex);
 	pthread_mutex_unlock(&philo->second_fork->mutex);
 }
@@ -57,10 +57,10 @@ void	*philo_routine(void *data)
 	while (!sim->ready)
 		;
 	while (!sim->over)
-    {
+	{
 		eat(philo, sim);
 		nap(philo, sim);
 		think(philo, sim);
-    }
+	}
 	return (NULL);
 }

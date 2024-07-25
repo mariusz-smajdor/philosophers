@@ -6,7 +6,7 @@
 /*   By: msmajdor <msmajdor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by msmajdor          #+#    #+#             */
-/*   Updated: 1970/01/01 00:00:00 by msmajdor         ###   ########.fr       */
+/*   Updated: 2024/07/25 20:03:56 by msmajdor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	start_sim(t_sim *sim)
 	if (sim->max_meals == 0)
 		return ;
 	while (++i < sim->philo_num)
-		pthread_create(&sim->philos[i].thread, NULL, philo_routine, &sim->philos[i]);
+		pthread_create(&sim->philos[i].thread, NULL,
+			philo_routine, &sim->philos[i]);
 	update_sim_data(sim);
 	pthread_create(&sim->monitor, NULL, monitor, sim);
 	i = -1;

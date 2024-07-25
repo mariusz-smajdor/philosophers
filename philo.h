@@ -6,7 +6,7 @@
 /*   By: msmajdor <msmajdor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by msmajdor          #+#    #+#             */
-/*   Updated: 1970/01/01 00:00:00 by msmajdor         ###   ########.fr       */
+/*   Updated: 2024/07/25 20:01:57 by msmajdor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@
 # include <unistd.h>
 # include <sys/time.h>
 
-typedef pthread_t t_thrd;
+typedef pthread_t		t_thrd;
 typedef pthread_mutex_t	t_mtx;
 
-typedef struct s_philo t_philo;
-typedef struct s_fork t_fork;
-typedef struct s_sim t_sim;
+typedef struct s_philo	t_philo;
+typedef struct s_fork	t_fork;
+typedef struct s_sim	t_sim;
 
 typedef struct s_philo
 {
@@ -75,7 +75,7 @@ typedef enum e_opcode
 }	t_opcode;
 
 long	get_timestamp(long time);
-long	get_current_time_in_millisec();
+long	get_current_time_in_millisec(void);
 void	*safe_malloc(size_t size);
 
 void	init_data(t_sim *sim, char **args);

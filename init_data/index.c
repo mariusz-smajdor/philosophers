@@ -6,7 +6,7 @@
 /*   By: msmajdor <msmajdor@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 1970/01/01 00:00:00 by msmajdor          #+#    #+#             */
-/*   Updated: 1970/01/01 00:00:00 by msmajdor         ###   ########.fr       */
+/*   Updated: 2024/07/25 20:03:07 by msmajdor         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static void	assign_forks(t_sim *sim, t_philo *philo, int pos)
 
 static void	init_philos(t_sim *sim)
 {
-	int	i;
+	int		i;
 	t_philo	*philo;
 
 	sim->philos = safe_malloc(sizeof(t_philo) * sim->philo_num);
