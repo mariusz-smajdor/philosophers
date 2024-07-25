@@ -28,6 +28,8 @@ void	start_sim(t_sim *sim)
 	int	i;
 
 	i = -1;
+	if (sim->max_meals == 0)
+		return ;
 	while (++i < sim->philo_num)
 		safe_thread(&sim->philos[i].thread, philo_routine, &sim->philos[i], CREATE);
 	update_sim_data(sim);

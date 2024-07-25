@@ -12,6 +12,31 @@
 
 #include "../philo.h"
 
+static void check_meals(t_sim *sim)
+{
+	t_philo	*philo;
+	bool	all_full;
+	int		i;
+
+	all_full = true;
+	i = -1;
+	while (++i < sim->philo_num)
+	{
+		philo = &sim->philos[i];
+		if (sim->max_meals != -1 && philo->meals < sim->max_meals)
+		{
+			all_full = false;
+			break ;
+		}
+	}
+	if (all_full)
+	{
+		safe_mutex(&sim->mutex, LOCK);
+		sim->over = true;
+		safe_mutex(&sim->mutex, UNLOCK);
+	}
+}
+
 static void	check_death(t_sim *sim)
 {
 	t_philo	*philo;
@@ -42,6 +67,7 @@ void	*monitor(void *data)
 	while (!sim->over)
 	{
 		check_death(sim);
+		check_meals(sim);
 	}
 	return (NULL);
 }
